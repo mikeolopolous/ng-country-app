@@ -1,7 +1,6 @@
 <section class="mt-5">
   <div class="overflow-x-auto">
     <table class="table table-md mt-2 w-full">
-      <!-- head -->
       <thead>
         <tr>
           <th>#</th>
@@ -14,27 +13,23 @@
         </tr>
       </thead>
       <tbody>
-        <!-- TODO -->
-        <!-- row 1 -->
-        <tr>
-          <th>1</th>
-          <td>Cy Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>Blue</td>
-          <td>Blue</td>
-          <td>Blue</td>
-          <td>Blue</td>
-        </tr>
-        <!-- row 2 -->
-        <tr class="hover:bg-base-300">
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Purple</td>
-          <td>Purple</td>
-          <td>Purple</td>
-          <td>Purple</td>
-        </tr>
+        @for (country of countries(); track country.alpha3Code; let i = $index) {
+          <tr [class.hover:bg-base-300]="i % 2 > 0">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <img [src]="country.flag" class="w-4" [alt]="country.name" />
+            </td>
+            <td>
+              <img [src]="country.flag" class="w-10" [alt]="country.name" />
+            </td>
+            <td>{{ country.name }}</td>
+            <td>{{ country.capital }}</td>
+            <td>{{ country.population }}</td>
+            <td>
+              <a class="link-primary cursor-pointer">Más información</a>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
