@@ -13,6 +13,6 @@ export class CountryMapper {
   }
 
   static mapRestItemsToCountryArray(items: RESTCountry[]): Country[] {
-    return items.map(this.mapRestItemToCountry);
+    return items.map((restCountry) => CountryMapper.mapRestItemToCountry(restCountry));
   }
 }
