@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { of } from 'rxjs';
+
 import { SearchInput } from '../../components/country-search-input/search-input';
 import { CountryList } from '../../components/country-list/country-list';
 import { CountryService } from '../../services/country';
-
-import type { Country } from '../../interfaces/country.interface';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -13,21 +14,14 @@ import type { Country } from '../../interfaces/country.interface';
 export class ByCapitalPage {
   countryService = inject(CountryService);
 
-  isLoading = signal(false);
-  isError = signal<string | null>(null);
-  countries = signal<Country[]>([]);
+  query = signal('');
 
-  onSearch(value: string) {
-    if (this.isLoading()) return;
+  capitalResource = rxResource({
+    params: () => ({ query: this.query() }),
+    stream: ({ params }) => {
+      if (!params.query) return of([]);
 
-    this.isLoading.set(true);
-    this.isError.set(null);
-
-    this.countryService.searchByCapital(value).subscribe((country) => {
-      this.isLoading.set(false);
-      this.countries.set(country);
-
-      console.log(country);
-    });
-  }
+      return this.countryService.searchByCapital(params.query);
+    },
+  });
 }

@@ -6,7 +6,7 @@ export class CountryMapper {
     return {
       alpha3Code: item.alpha3Code,
       flag: item.flag,
-      name: item.name,
+      name: item.translations.es,
       capital: item.capital,
       population: item.population,
     };

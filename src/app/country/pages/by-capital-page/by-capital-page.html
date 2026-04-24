@@ -1,3 +1,8 @@
-<country-search-input placeholder="Buscar por capital" (value)="onSearch($event)" />
+<country-search-input placeholder="Buscar por capital" (value)="query.set($event)" />
 
-<country-list [countries]="countries()" />
+<country-list
+  [countries]="capitalResource.value() ?? []"
+  [errorMessage]="capitalResource.error()"
+  [isEmpty]="capitalResource.value()?.length === 0"
+  [isLoading]="capitalResource.isLoading()"
+/>
