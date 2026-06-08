@@ -46,7 +46,6 @@ export class CountryService {
 
     return this.http.get<RESTCountry>(`${API_URL}/alpha/${query}`).pipe(
       map(CountryMapper.mapRestItemToCountry),
-      // map((countries) => countries.at(0)!),
       catchError((err) => {
         console.log('Error fetching -> searchCountryByAlphaCode', err);
         return throwError(() => new Error('No se obtuvieron resultados'));
